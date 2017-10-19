@@ -29,7 +29,7 @@ public class TestCompareTextures
 		}
 
 		var texturesSimilarity = GetTextureSimilarity(cameraTexture, compareTexture);
-		Assert.IsTrue(texturesSimilarity >= 0.9f);
+		Assert.IsTrue(texturesSimilarity >= 0.96f);
 	}
 
 	private static Texture2D CaptureCamera(string name)
@@ -72,7 +72,8 @@ public class TestCompareTextures
 
 	private static string GetCurrentGraphicsAPIPostFix()
 	{
-        switch (SystemInfo.graphicsDeviceType)
+		return "";
+        /*switch (SystemInfo.graphicsDeviceType)
         {
         	case GraphicsDeviceType.Direct3D11:
         		return "_D3D11";
@@ -81,7 +82,7 @@ public class TestCompareTextures
         	default:
         		Debug.LogError("Please use d3d11 or metal for graphics API!");
         		return null;
-        }
+        }*/
 	}
 
 	private static Texture2D TryGetCompareTexture(string name)
@@ -101,7 +102,7 @@ public class TestCompareTextures
 		var firstPixels = first.GetPixels();
 		var secondPixels = second.GetPixels();
 
-		// TODO: Make it partial comparing
+		var similarity = 1f;
 
 		for (int i = 0; i < width; i++)
 		{
@@ -111,11 +112,18 @@ public class TestCompareTextures
 				var firstPixel = firstPixels[index];
 				var secondPixel = secondPixels[index];
 
-				if (firstPixel != secondPixel)
-					return 0;
+				var newSimiliarity = GetColorSimilarity(firstPixel, secondPixel);
+				if (similarity > newSimiliarity)
+					similarity = newSimiliarity;
 			}
 		}
 
-		return 1;
+		return similarity;
+	}
+
+	private static float GetColorSimilarity(Color first, Color second)
+	{
+		// Just random algorithm, dunno if it works very good
+		return 1 - (Mathf.Abs(first.r - second.r) + Mathf.Abs(first.g - second.g) + Mathf.Abs(first.b - second.b)) / 3;
 	}
 }
