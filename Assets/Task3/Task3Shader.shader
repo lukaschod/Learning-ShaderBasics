@@ -34,13 +34,14 @@
 			sampler2D _MainTex;
 
 			// 1 TODO: Add buffer property _CustomBuffer
-			StructuredBuffer<CustomBufferData> _CustomBuffer;
 			
 			VertData vert(AppData i)
 			{
 				VertData o;
-				//CustomBufferData data; // 2 TODO: Read from _CustomBuffer array to data, use i
-				CustomBufferData data = _CustomBuffer[i.id];
+
+				// 2 TODO: Read from _CustomBuffer array to data, use i
+				CustomBufferData data;
+
 				o.pos = UnityObjectToClipPos(data.pos);
 				o.uv = data.uv;
 				return o;

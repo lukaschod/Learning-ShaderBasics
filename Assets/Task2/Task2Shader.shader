@@ -38,14 +38,12 @@
 
 			// 1 TODO: Add color property named _GradientStartColor
 			// 2 TODO: Add color property named _GradientEndColor
-			float4 _GradientStartColor;
-			float4 _GradientEndColor;	
 			
 			float4 frag(VertData i) : SV_Target
 			{
 				float4 col = tex2D(_MainTex, i.uv);
-				//float4 gradient = 1; // 3 TODO: Make linear gradient between _GradientStartColor and _GradientEndColor
-				float4 gradient = lerp(_GradientStartColor, _GradientEndColor, i.uv.x);
+				// 3 TODO: Make linear gradient between _GradientStartColor and _GradientEndColor
+				float4 gradient = 1;
 				return col * gradient;
 			}
 			ENDCG

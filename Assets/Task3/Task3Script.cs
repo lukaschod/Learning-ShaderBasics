@@ -34,18 +34,12 @@ public class Task3Script : MonoBehaviour
 				// 4 TODO: Add vertex with (0, 0, 0, 1) coordinates
 				// 5 TODO: Add vertex with (1, 1, 0, 1) coordinates
 				// 6 TODO: Add vertex with (1, 0, 0, 1) coordinates
-				new Vertex(new Vector4(0, 0, 0, 1), new Vector2(0, 0)),
-				new Vertex(new Vector4(1, 1, 0, 1), new Vector2(1, 1)),
-				new Vertex(new Vector4(1, 0, 0, 1), new Vector2(1, 0)),
 			};
 
 			// 1 TODO: Create customBuffer with correct arguments
 			// 2 TODO: Update customBuffer data with vertices
-			customBuffer = new ComputeBuffer(vertices.Length, sizeof(float) * 4 + sizeof(float) * 2);
-			customBuffer.SetData(vertices);
 
 			// 3 TODO: Set buffer customBuffer for material mat
-			mat.SetBuffer("_CustomBuffer", customBuffer);
 		}
 	}
 }

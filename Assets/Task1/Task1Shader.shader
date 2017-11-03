@@ -39,7 +39,7 @@
 			float4 frag(VertData i) : SV_Target
 			{
 				float4 col = tex2D(_MainTex, i.uv);
-				return float4(col.r, 0, 0, 1);
+				return col;
 			}
 			ENDCG
 		}

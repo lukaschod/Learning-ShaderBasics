@@ -15,7 +15,6 @@ public class Task2Script : MonoBehaviour
 		
 		// 1 TODO: Set color _GradientStartColor for material mat
 		// 2 TODO: Set color _GradientEndColor for material mat
-		mat.SetColor("_GradientStartColor", Color.red);
-		mat.SetColor("_GradientEndColor", Color.blue);
+
 	}
 }
