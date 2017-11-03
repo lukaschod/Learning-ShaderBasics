@@ -34,7 +34,7 @@
 			sampler2D _MainTex;
 
 			// 1 TODO: Add buffer property _CustomBuffer
-			RWStructuredBuffer<CustomBufferData> _CustomBuffer;
+			StructuredBuffer<CustomBufferData> _CustomBuffer;
 			
 			VertData vert(AppData i)
 			{
