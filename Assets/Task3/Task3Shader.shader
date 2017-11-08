@@ -3,6 +3,8 @@
 	Properties
 	{
 		_MainTex ("Base (RGB)", 2D) = "" {}
+		// 1 TODO: Add a float property with Range(0,1) named _Displacement
+		_Displacement("_Displacement", Range(0,1)) = 0
 	}
 
 	SubShader
@@ -16,7 +18,9 @@
 
 			struct AppData
 			{
-				uint id : SV_VertexID; // This is the index of vertex in buffer
+				float4 pos : POSITION;
+				float2 uv : TEXCOORD0;
+				float3 normal : NORMAL;
 			};
 
 			struct VertData
@@ -25,25 +29,23 @@
 				float2 uv : TEXCOORD0;
 			};
 
-			struct CustomBufferData
-			{
-				float4 pos;
-				float2 uv;
-			};
-
 			sampler2D _MainTex;
 
-			// 1 TODO: Add buffer property _CustomBuffer
+			// 2 TODO: Add the float property named _Displacement, so that it matches with the Property in TODO #1
+			float _Displacement;
 			
 			VertData vert(AppData i)
 			{
 				VertData o;
+				o.uv = i.uv;
+				float DisplaceFactor = 1;
 
-				// 2 TODO: Read from _CustomBuffer array to data, use i
-				CustomBufferData data;
+				// 3 TODO: Sample the _MainTex by using tex2Dlod(), and take only the Red channel as the DisplaceFactor
+				// 4 TODO: modify the vertex position (i.pos) based on DisplaceFactor and _Displacement so that it displaces outward along the vertex normal (i.normal)
+				DisplaceFactor = tex2Dlod(_MainTex, float4(o.uv,0,0)).r;
+				i.pos.xyz += DisplaceFactor *_Displacement * i.normal;
 
-				o.pos = UnityObjectToClipPos(data.pos);
-				o.uv = data.uv;
+				o.pos = UnityObjectToClipPos(i.pos);
 				return o;
 			}
 			
