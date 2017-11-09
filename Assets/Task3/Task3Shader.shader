@@ -4,7 +4,6 @@
 	{
 		_MainTex ("Base (RGB)", 2D) = "" {}
 		// 1 TODO: Add a float property with Range(0,1) named _Displacement
-		_Displacement("_Displacement", Range(0,1)) = 0
 	}
 
 	SubShader
@@ -32,8 +31,7 @@
 			sampler2D _MainTex;
 
 			// 2 TODO: Add the float property named _Displacement, so that it matches with the Property in TODO #1
-			float _Displacement;
-			
+		
 			VertData vert(AppData i)
 			{
 				VertData o;
@@ -42,8 +40,6 @@
 
 				// 3 TODO: Sample the _MainTex by using tex2Dlod(), and take only the Red channel as the DisplaceFactor
 				// 4 TODO: modify the vertex position (i.pos) based on DisplaceFactor and _Displacement so that it displaces outward along the vertex normal (i.normal)
-				DisplaceFactor = tex2Dlod(_MainTex, float4(o.uv,0,0)).r;
-				i.pos.xyz += DisplaceFactor *_Displacement * i.normal;
 
 				o.pos = UnityObjectToClipPos(i.pos);
 				return o;
